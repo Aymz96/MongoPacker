@@ -1,37 +1,44 @@
 # Mongo Packer
-This repository includes files which are used to create an AMI (Amazon Machine Image) in AWS containing mongodb. With some tweaks, the files can also be used to create machine images in other cloud providers which will not be shown here.
+In this repository, there are files which will be working in conjuntons with the NodeCookbookStarterCode. These will be used to create an Amazon Machine Image (AMI) in AWS. It will consist of npm, pm2, nginx and nodejs.
+
 
 ## Pre-requisites
-I have run the cookbook using the below prerequisites:
-- Packer v1.5.5
-- Chef Workstation:
-  - Infra Client v15.7.32
-  - ChefDK v4.7.73
-  - Test Kitchen v2.3.4
-  - Foodcritic v16.2.0
-  - Cookstyle v5.20.0
-- AWS account
-- Git v2.24.1
+- In order to run the Mongo Cookbook you must ensure you have the packages below:
+
+```CSS
+- Packer
+- AWS Account
+- git
+- chef
+    Chef Workstation:
+      - ChefDK version: 4.7.73
+      - Chef Infra Client version: 15.7.32
+      - Chef InSpec version: 4.18.51
+      - Test Kitchen version: 2.3.4
+      - Foodcritic version: 16.2.0
+      - Cookstyle version: 5.20.0
+```
+
 
 ## Packer
-Packer is a tool used to create machine images using your choice of configuration management tools (a provisioner such as Chef) and/or cloud provider (a builder such as Amazon EC2). These machine images will have a pre-configured operating system and already installed software which can be used to make machines instantly.
+- Packer is a tool which is used to create machine images using any configuration management tool. for example in this project we have used Chef and AWS EC2 machines. The images will be configured to the right operating system and softwares needed.
 
 ## How to use
-Clone and navigate into the mongoPacker directory and follow the below steps.
-- Run berkshelf to pull the latest mongo cookbook
+Clone and navigate into the nodePacker directory and follow the below steps.
+- Run berkshelf to pull the latest mongo cookbook.
 ```bash
 $ berks vendor
 ```
-- configure packer.json to use your AWS details and keys (lines 10, 12, 13, 15, & 20). Also make sure your AWS credentials are saved in your environment variables
+- You must configure packer.json to be able to use the AWS details and keys. Also make sure your AWS credentials are saved in your environment variables.
+
 - verify the packer.json file.
+
 ```bash
 $ packer validate packer.json
 ```
-- If the above validation passes, run the packer.json file
+- If the above validation passes, run the packer.json file.
+
 ```bash
 $ packer build packer.json
 ```
-- The above will open a connection with AWS and will create an EC2 instance, provision the machine, create an AMI and delete the temporary EC2 instance
-
-## Author
-**Kevin Monteiro** - *DevOps Engineer* - [km-aero](https://github.com/km-aero)
+- This will open a connection in the AWS and allow it to create an EC2 machine.
